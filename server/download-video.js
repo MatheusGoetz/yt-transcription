@@ -1,13 +1,13 @@
-import ytdl from "ytdl-core"
-import fs from "fs"
+import ytdl from "ytdl-core";
+import fs from 'fs'
 
-export const downloader = (videoId) => new Promise ((resolve, reject) =>{
+export const downloader = (videoId) => new Promise((resolve, reject) => {
   const videoURL = 'https://youtube.com/watch?v=' + videoId
-  console.log('[START_DOWNLOAD]' , videoURL)
+  console.log('[START_DOWNLOAD] ', videoURL)
 
   ytdl(videoURL, {
     quality: "lowestaudio",
-    filter: "audioonly",
+    filter: 'audioonly',
   })
   .on('end', () => {
     console.log('[FINISHED_DOWNLOAD]')
@@ -15,7 +15,7 @@ export const downloader = (videoId) => new Promise ((resolve, reject) =>{
   })
   .on('error', () => {
     console.log('[ERROR_DOWNLOAD]')
-    reject('[ERROR_DOWNLOAD_VIDEO]')
+    reject('[ERROR_DOWNLOADING_VIDEO]')
   })
   .pipe(fs.createWriteStream('audio.mp4'))
 })
